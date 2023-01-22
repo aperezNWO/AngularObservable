@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LoginfoviewComponent } from './loginfoview.component';
+import { LogInfoViewComponent } from './loginfoview.component';
 
 describe('LoginfoviewComponent', () => {
-  let component: LoginfoviewComponent;
-  let fixture: ComponentFixture<LoginfoviewComponent>;
+  let component: LogInfoViewComponent;
+  let fixture: ComponentFixture<LogInfoViewComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LoginfoviewComponent ]
+      declarations: [ LogInfoViewComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(LoginfoviewComponent);
+    fixture = TestBed.createComponent(LogInfoViewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
