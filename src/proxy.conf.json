@@ -1,0 +1,7 @@
+{
+    "/api/*": {
+        "target": "https://learningpath.somee.com/demos/generarinformejson",
+        "secure": false,
+        "logLevel": "debug"
+    }
+}
