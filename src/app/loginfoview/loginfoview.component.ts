@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnInit, ViewChild  } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator       } from '@angular/material/paginator';
-import { map, Observable    } from 'rxjs';
+import { Observable         } from 'rxjs';
 import { LogEntry           } from '../loginfo.model';
 import { LogInfoService     } from '../loginfo.service';
 //
@@ -13,38 +13,57 @@ import { LogInfoService     } from '../loginfo.service';
 //
 export class LogInfoViewComponent implements OnInit, AfterViewInit {
   //
+  informeLogRemoto!   : Observable<LogEntry[]>;
+  //
   title = '';
   //
-  private dataSource = new MatTableDataSource<LogEntry>();
+  dataSource : any;
   //
   displayedColumns: string[] = ['id_Column', 'pageName', 'accessDate', 'ipValue'];
   //
-  @ViewChild(MatPaginator)
-  paginator!: MatPaginator;
-  //  
-  logInfoAsMatTableDataSource$: Observable<MatTableDataSource<LogEntry>> =
-  this.logInfoService.loginfo.pipe(
-    map((p_loginfo) => {
-      const dataSource = this.dataSource;
-      dataSource.data  = p_loginfo
-      return dataSource;
-    })
-  );
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  //
+  ELEMENT_DATA_LOCAL: LogEntry[] = [];
   //
   constructor(private logInfoService: LogInfoService) {
-    this.update();
-  }
-
-  update() {
-    this.logInfoService.updateLogInfo();
-  }
-
-  ngOnInit(): void {
-
-  }
-
-  ngAfterViewInit() {
+    //
+    this.informeLogRemoto =  this.logInfoService.getLogRemoto();
+    //  
+    this.informeLogRemoto.forEach(
+        _p_logInfo =>{
+          _p_logInfo.forEach(
+            p_logInfo =>{
+                this.ELEMENT_DATA_LOCAL.push(p_logInfo);
+            }
+          )
+    });
+    //
+    this.dataSource           = new MatTableDataSource<LogEntry>(this.ELEMENT_DATA_LOCAL);
     this.dataSource.paginator = this.paginator;
   }
-
+  //
+  update() {
+    //
+    //this.informeLogRemoto =  this.logInfoService.getLogRemoto();
+  }
+  //
+  ngOnInit(): void {
+      //
+      this.informeLogRemoto =  this.logInfoService.getLogRemoto();
+      //  
+      this.informeLogRemoto.forEach(
+          _p_logInfo =>{
+            _p_logInfo.forEach(
+              p_logInfo =>{
+                  this.ELEMENT_DATA_LOCAL.push(p_logInfo);
+              }
+            )
+      });
+      //
+      this.dataSource           = new MatTableDataSource<LogEntry>(this.ELEMENT_DATA_LOCAL);
+  }
+  //
+  ngAfterViewInit() {
+    //this.dataSource.paginator = this.paginator;
+  }
 }
