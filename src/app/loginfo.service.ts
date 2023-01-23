@@ -37,14 +37,12 @@ export class LogInfoService {
     console.log("ELEMENT_DATA_LOCAL from http/json : " + this.ELEMENT_DATA_LOCAL);
   }*/
   //
-  /*
-  //
   getLogLocal() {
       //
-      // http://learningpath.somee.com/demos/generarinformejson
+      let url='../assets/loginfo.json'
       //    
-      return this.http.get<{id_Column:string,pageName:string,accessDate:string,ipValue:string}[]>('../assets/loginfo.json');
-  }*/
+      return this.http.get<LogEntry[]>(url);
+  }
   //
   getLogRemoto() {
     //

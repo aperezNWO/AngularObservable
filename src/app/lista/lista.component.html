@@ -1,0 +1,6 @@
+<h2>{{title}}</h2>
+<mat-nav-list>
+  <mat-list-item class="loginfo" *ngFor="let logEntry of informeLogRemoto | async">
+    <mat-list-item role="listitem" class="loginfo-item">{{logEntry.accessDate | date }}</mat-list-item>
+  </mat-list-item>
+</mat-nav-list>
