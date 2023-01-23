@@ -13,11 +13,11 @@ import { LogInfoService     } from '../loginfo.service';
 //
 export class LogInfoViewComponent implements OnInit, AfterViewInit {
   //
+  title = '[Material Table with json/http source and pagination]';
+  //
   informeLogRemoto!   : Observable<LogEntry[]>;
   //
-  title = '';
-  //
-  dataSource : any;
+  dataSource         : MatTableDataSource<LogEntry>;
   //
   displayedColumns: string[] = ['id_Column', 'pageName', 'accessDate', 'ipValue'];
   //
@@ -26,28 +26,6 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
   ELEMENT_DATA_LOCAL: LogEntry[] = [];
   //
   constructor(private logInfoService: LogInfoService) {
-    //
-    this.informeLogRemoto =  this.logInfoService.getLogRemoto();
-    //  
-    this.informeLogRemoto.forEach(
-        _p_logInfo =>{
-          _p_logInfo.forEach(
-            p_logInfo =>{
-                this.ELEMENT_DATA_LOCAL.push(p_logInfo);
-            }
-          )
-    });
-    //
-    this.dataSource           = new MatTableDataSource<LogEntry>(this.ELEMENT_DATA_LOCAL);
-    this.dataSource.paginator = this.paginator;
-  }
-  //
-  update() {
-    //
-    //this.informeLogRemoto =  this.logInfoService.getLogRemoto();
-  }
-  //
-  ngOnInit(): void {
       //
       this.informeLogRemoto =  this.logInfoService.getLogRemoto();
       //  
@@ -56,14 +34,27 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
             _p_logInfo.forEach(
               p_logInfo =>{
                   this.ELEMENT_DATA_LOCAL.push(p_logInfo);
+                  //
+                  console.log("ELEMENT_DATA_LOCAL : " + p_logInfo);
               }
             )
       });
       //
       this.dataSource           = new MatTableDataSource<LogEntry>(this.ELEMENT_DATA_LOCAL);
+      this.dataSource.paginator = this.paginator;
+      //
+      console.log("ELEMENT_DATA_LOCAL : " + this.ELEMENT_DATA_LOCAL);
+  }
+  //
+  ngOnInit(): void {
+      //
   }
   //
   ngAfterViewInit() {
     //this.dataSource.paginator = this.paginator;
+  }
+  //
+  update() {
+    //
   }
 }
