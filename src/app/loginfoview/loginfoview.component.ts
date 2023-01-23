@@ -23,27 +23,27 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
   //
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   //
-  ELEMENT_DATA_LOCAL: LogEntry[] = [];
-  //
   constructor(private logInfoService: LogInfoService) {
       //
       this.informeLogRemoto =  this.logInfoService.getLogRemoto();
+      //
+      let ELEMENT_DATA_LOCAL: LogEntry[] = [];
       //  
       this.informeLogRemoto.forEach(
           _p_logInfo =>{
             _p_logInfo.forEach(
               p_logInfo =>{
-                  this.ELEMENT_DATA_LOCAL.push(p_logInfo);
+                  ELEMENT_DATA_LOCAL.push(p_logInfo);
                   //
-                  console.log("ELEMENT_DATA_LOCAL : " + p_logInfo);
+                  console.log("ELEMENT_DATA_LOCAL : " + JSON.stringify(p_logInfo));
               }
             )
-      });
+      });// TODO : SUBSCRIBE
       //
-      this.dataSource           = new MatTableDataSource<LogEntry>(this.ELEMENT_DATA_LOCAL);
+      this.dataSource           = new MatTableDataSource<LogEntry>(ELEMENT_DATA_LOCAL);
       this.dataSource.paginator = this.paginator;
       //
-      console.log("ELEMENT_DATA_LOCAL : " + this.ELEMENT_DATA_LOCAL);
+      console.log("ELEMENT_DATA_LOCAL : " + ELEMENT_DATA_LOCAL);
   }
   //
   ngOnInit(): void {
