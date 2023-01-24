@@ -1,7 +1,7 @@
 <h2>{{title}}</h2>
 <div class="scrollbar">
 <mat-nav-list>
-  <mat-list-item class="loginfo" *ngFor="let logEntry of informeLogRemoto | async">
+  <mat-list-item class="loginfo" *ngFor="let logEntry of informeLogLocal | async">
     <mat-list-item class="loginfo_item">{{logEntry.id_Column}} | {{logEntry.accessDate | date }}</mat-list-item>
   </mat-list-item>
 </mat-nav-list>

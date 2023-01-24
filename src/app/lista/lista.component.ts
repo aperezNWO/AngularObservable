@@ -12,15 +12,15 @@ import { LogInfoService           } from '../loginfo.service';
 //
 export class ListaComponent implements OnInit {
     //
-    title = '[Material list with json/http remote source]';
+    title = '[Material list with json/http local source]';
     //
-    informeLogRemoto!   : Observable<LogEntry[]>;
+    informeLogLocal!   : Observable<LogEntry[]>;
     //
     constructor(private logInfoService: LogInfoService) {
         //
-        this.informeLogRemoto =  this.logInfoService.getLogRemoto(); 
+        this.informeLogLocal =  this.logInfoService.getLogLocal(); 
         //
-        console.log("LOADING DATA : " + JSON.stringify(this.informeLogRemoto));
+        console.log("LOADING DATA : " + JSON.stringify(this.informeLogLocal));
     }
     //
     ngOnInit(): void {
