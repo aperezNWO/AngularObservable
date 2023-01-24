@@ -13,7 +13,7 @@ import { LogInfoService     } from '../loginfo.service';
 //
 export class LogInfoViewComponent implements OnInit, AfterViewInit {
   //
-  title = '[Material Table with json/http source and pagination]';
+  title = '[Material Table with json/http remote source and pagination]';
   //
   informeLogRemoto!   : Observable<LogEntry[]>;
   //

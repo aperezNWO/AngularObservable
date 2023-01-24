@@ -12,7 +12,7 @@ import { LogInfoService           } from '../loginfo.service';
 //
 export class ListaComponent implements OnInit {
     //
-    title = '[Material list with json/http source]';
+    title = '[Material list with json/http remote source]';
     //
     informeLogRemoto!   : Observable<LogEntry[]>;
     //

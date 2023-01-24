@@ -1,0 +1,36 @@
+table {
+    width: min-content;
+    margin: 2rem;
+
+    th {
+      font-weight: bold;
+      font-size: 120%;
+    }
+}
+  
+.mat-column-id_Column {
+    flex: none;
+    width: 100px;
+    padding: 1rem;
+  }
+
+
+.mat-column-pageName {
+    flex: none;
+    width: 100px;
+    padding: 1rem;
+  }
+
+.mat-column-accessDate {
+    flex: none;
+    width: 100px;
+    padding: 1rem;
+  }
+
+  .mat-column-ipValue {
+    flex: none;
+    width: 100px;
+    padding: 1rem;
+  }
+    
+  
