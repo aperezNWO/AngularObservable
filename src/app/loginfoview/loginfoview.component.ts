@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnInit, ViewChild  } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator       } from '@angular/material/paginator';
-import { Observable         } from 'rxjs';
+import { BehaviorSubject, Observable         } from 'rxjs';
 import { LogEntry           } from '../loginfo.model';
 import { LogInfoService     } from '../loginfo.service';
 //
@@ -15,11 +15,13 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
   //
   title = '[Material Table with json/http remote source and pagination]';
   //
-  informeLogRemoto!   : Observable<LogEntry[]>;
+  informeLogRemoto!                  : Observable<LogEntry[]>;
   //
-  dataSource         : MatTableDataSource<LogEntry>;
+  dataSource                         : MatTableDataSource<LogEntry>;
+  // 
+  displayedColumns                   : string[] = ['id_Column', 'pageName', 'accessDate', 'ipValue'];
   //
-  displayedColumns: string[] = ['id_Column', 'pageName', 'accessDate', 'ipValue'];
+  private _loginfo                   = new BehaviorSubject([]);
   //
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   //
@@ -31,14 +33,14 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
       //  
       this.informeLogRemoto.forEach(
           _p_logInfo =>{
+            /*
             _p_logInfo.forEach(
               p_logInfo =>{
                   ELEMENT_DATA_LOCAL.push(p_logInfo);
                   //
                   console.log("ELEMENT_DATA_LOCAL : " + JSON.stringify(p_logInfo));
-              }
-            )
-      });// TODO : SUBSCRIBE
+            */
+      });
       //
       this.dataSource           = new MatTableDataSource<LogEntry>(ELEMENT_DATA_LOCAL);
       this.dataSource.paginator = this.paginator;
