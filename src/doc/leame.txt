@@ -1,0 +1,2 @@
+Ejemplo base que ejecuta correctamente observable (con material table incluido despues).
+https://stackblitz.com/edit/angular-ivy-bqhro2?file=src%2Fapp%2Fthing.service.ts
