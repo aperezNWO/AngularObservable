@@ -11,6 +11,7 @@ import { LogInfoViewComponent } from './loginfoview/loginfoview.component';
 import { ListaComponent       } from './lista/lista.component';
 import { DatatableComponent   } from './datatable/datatable.component';
 import { ObservableComponent  } from './observable/observable.component';
+import { AsyncprogComponent   } from './asyncprog/asyncprog.component';
 
 @NgModule({
   imports: [
@@ -24,10 +25,11 @@ import { ObservableComponent  } from './observable/observable.component';
       {  path: 'lista'          , component: ListaComponent           },
       {  path: 'datatable'      , component: DatatableComponent       },
       {  path: 'dynamictable'   , component: LogInfoViewComponent     }, 
-      {  path: 'observable'     , component: ObservableComponent      },     
+      {  path: 'observable'     , component: ObservableComponent      },   
+      {  path: 'asyncprog'      , component: AsyncprogComponent       },         
     ])
   ],
-  declarations: [AppComponent, LogInfoViewComponent, ListaComponent, DatatableComponent, ObservableComponent],
+  declarations: [AppComponent, LogInfoViewComponent, ListaComponent, DatatableComponent, ObservableComponent, AsyncprogComponent],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

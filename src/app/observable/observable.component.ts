@@ -9,22 +9,22 @@ import { from, fromEvent, interval, Observable, Observer, of } from 'rxjs';
 //
 export class ObservableComponent {
     //
-    title : string = "[Angular Observable & rxjs]";
+    title : string = "[Angular Observable]";
     //
     constructor()
     {
         //
-        //this.ObservableTest01();
+        this.ObservableTest01();
         //
-        //this.ObservableTest02();
+        this.ObservableTest02();
         //
-        //this.ObservableTest03();
+        this.ObservableTest03();
         //
-        //this.ObservableTest04();
+        this.ObservableTest04();
         //
-        //this.ObservableTest05();
+        this.ObservableTest05();
         //
-        this.RxJSTest01();
+        this.ObservableTest06();
     }
     //
     ObservableTest01():void
@@ -85,6 +85,7 @@ export class ObservableComponent {
     }
     //
     ObservableTest04():void{
+      /*
       // Subscribe starts the clock, and will emit after 1 second
       sequence_3.subscribe({
         next(num) { console.log('1st subscribe: ' + num); },
@@ -97,7 +98,7 @@ export class ObservableComponent {
           next(num) { console.log('2nd subscribe: ' + num); },
           complete() { console.log('2nd sequence finished.'); }
         });
-      }, 500);
+      }, 500);*/
       // Logs:
       // (at 1 second): 1st subscribe: 1
       // (at 1.5 seconds): 2nd subscribe: 1
@@ -110,6 +111,7 @@ export class ObservableComponent {
     }
     //
     ObservableTest05():void{
+      /*
       // Subscribe starts the clock, and begins to emit after 1 second
       multicastSequence.subscribe({
         next(num) { console.log('1st subscribe: ' + num); },
@@ -123,7 +125,7 @@ export class ObservableComponent {
           complete() { console.log('2nd sequence finished.'); }
         });
       }, 1500);
-
+      */
       // Logs:
       // (at 1 second): Emitting 1
       // (at 1 second): 1st subscribe: 1
@@ -137,26 +139,22 @@ export class ObservableComponent {
       // (at 3 seconds): 2nd sequence finished
     }
     //
-    RxJSTest01():void{
-      //
-      let url : string = "https://learningpath.somee.com/demos/generarinformejson";
-      // Create an Observable out of a promise
-      let data = from(fetch(url));
-      // Subscribe to begin listening for async result
-      data.subscribe({
-        next(response) { console.log(response); },
-        error(err) { console.error('Error: ' + err); },
-        complete() { console.log('Completed'); }
-      });
-   }
-   //
-   RxJSTest02():void{
-      //
-      //secondsCounter.
-   }
+    ObservableTest06():void{
+        /*
+        const ESC_CODE     = 'Escape';
+        const nameInput    = document.getElementById('name') as HTMLInputElement;
+        const subscription = fromEvent(nameInput, 'keydown').subscribe(
+          (e: any) => {
+              //
+              //if (e.code === ESC_CODE) {
+              //    nameInput.value = '';
+              //}
+          });*/
+    }
 }
+
 // This function runs when subscribe() is called
-function  sequenceSubscriber_01(observer: Observer<number>) {
+function sequenceSubscriber_01(observer: Observer<number>) {
       // synchronously deliver 1, 2, and 3, then complete
       observer.next(1);
       observer.next(2);
@@ -168,31 +166,32 @@ function  sequenceSubscriber_01(observer: Observer<number>) {
 }
 //
 function sequenceSubscriber_02(observer: Observer<number>) {
-  const seq = [1, 2, 3];
-  let timeoutId: any;
+      //
+      const seq = [1, 2, 3];
+      let timeoutId: any;
 
-  // Will run through an array of numbers, emitting one value
-  // per second until it gets to the end of the array.
-  function doInSequence(arr: number[], idx: number) {
-    timeoutId = setTimeout(() => {
-      observer.next(arr[idx]);
-      if (idx === arr.length - 1) {
-        observer.complete();
-      } else {
-        doInSequence(arr, ++idx);
+      // Will run through an array of numbers, emitting one value
+      // per second until it gets to the end of the array.
+      function doInSequence(arr: number[], idx: number) {
+        timeoutId = setTimeout(() => {
+          observer.next(arr[idx]);
+          if (idx === arr.length - 1) {
+            observer.complete();
+          } else {
+            doInSequence(arr, ++idx);
+          }
+        }, 1000);
       }
-    }, 1000);
-  }
-  //
-  doInSequence(seq, 0);
 
-  // Unsubscribe should clear the timeout to stop execution
-  return {
-    unsubscribe() {
-      clearTimeout(timeoutId);
-    }
+      //
+      doInSequence(seq, 0);
+
+      // Unsubscribe should clear the timeout to stop execution
+      return {
+        unsubscribe() {
+          clearTimeout(timeoutId);
+        }
   };
-
 }
 //
 function multicastSequenceSubscriber() {
@@ -214,7 +213,8 @@ function multicastSequenceSubscriber() {
           // Iterate through observers and notify all subscriptions
           observers.forEach(obs => obs.next(val));
         },
-        error() { /* Handle the error... */ },
+        error() { // handle error 
+        },
         complete() {
           // Notify all complete callbacks
           observers.slice(0).forEach(obs => obs.complete());
@@ -249,30 +249,15 @@ function multicastSequenceSubscriber() {
     }
   };
 }
-// Create an Observable that will publish a value on an interval
-const secondsCounter = interval(1000);
-// Subscribe to begin publishing values
-const subscription = secondsCounter.subscribe(n =>
-  console.log(`It's been ${n + 1} seconds since subscribing!`));
-  
+
 // Create a new Observable that will deliver the above sequence
-const sequence_1 =  new Observable(sequenceSubscriber_01);
+const sequence_1        = new Observable(sequenceSubscriber_01);
+
 // Create a new Observable that will deliver the above sequence
-const sequence_2   = new Observable(sequenceSubscriber_02);
+const sequence_2        = new Observable(sequenceSubscriber_02);
+
 // Create a new Observable that will deliver the above sequence
-const sequence_3   = new Observable(sequenceSubscriber_02);
+const sequence_3        = new Observable(sequenceSubscriber_02);
+
 // Create a new Observable that will deliver the above sequence
 const multicastSequence = new Observable(multicastSequenceSubscriber());
-/*
-//
-const ESC_CODE     = 'Escape';
-const nameInput    = document.getElementById('name') as HTMLInputElement;
-//const subscription = fromEvent(nameInput, 'keydown').subscribe(
-  // (e: KeyboardEvent) 
-  //=> {
-  //
-  //if (e.code === ESC_CODE) {
-  //    nameInput.value = '';
-  //}
-//});
-*/
