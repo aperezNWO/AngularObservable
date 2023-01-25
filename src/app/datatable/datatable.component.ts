@@ -13,13 +13,11 @@ import { LogInfoService     } from '../loginfo.service';
 //
 export class DatatableComponent implements OnInit, AfterViewInit {
   //
-  title              : string   = '[Material Table with local static source and pagination]';
+  title               : string   = '[Material Table with local static source and pagination]';
   //
-  informeLogLocal!   : Observable<LogEntry[]>;
+  displayedColumns    : string[] = ['id_Column', 'pageName', 'accessDate', 'ipValue'];
   //
-  displayedColumns   : string[] = ['id_Column', 'pageName', 'accessDate', 'ipValue'];
-  //
-  dataSource                    = new MatTableDataSource<LogEntry>;
+  dataSource          = new MatTableDataSource<LogEntry>;
   //
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   //
