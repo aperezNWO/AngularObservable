@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnInit, ViewChild  } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator       } from '@angular/material/paginator';
-import { BehaviorSubject, Observable         } from 'rxjs';
+import { BehaviorSubject, Observable, tap         } from 'rxjs';
 import { LogEntry           } from '../loginfo.model';
 import { LogInfoService     } from '../loginfo.service';
 //
@@ -17,7 +17,7 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
   //
   informeLogRemoto!                  : Observable<LogEntry[]>;
   //
-  dataSource                         : MatTableDataSource<LogEntry>;
+  dataSource                         = new MatTableDataSource<LogEntry>();
   // 
   displayedColumns                   : string[] = ['id_Column', 'pageName', 'accessDate', 'ipValue'];
   //
@@ -26,26 +26,15 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   //
   constructor(private logInfoService: LogInfoService) {
+    //
+    this.informeLogRemoto = this.logInfoService.getLogRemoto();
+    //
+    this.informeLogRemoto.pipe(tap((p_logInfo) => {
       //
-      this.informeLogRemoto =  this.logInfoService.getLogRemoto();
+      console.log("ELEMENT_DATA_LOCAL : " + p_logInfo); 
       //
-      let ELEMENT_DATA_LOCAL: LogEntry[] = [];
-      //  
-      this.informeLogRemoto.forEach(
-          _p_logInfo =>{
-            /*
-            _p_logInfo.forEach(
-              p_logInfo =>{
-                  ELEMENT_DATA_LOCAL.push(p_logInfo);
-                  //
-                  console.log("ELEMENT_DATA_LOCAL : " + JSON.stringify(p_logInfo));
-            */
-      });
-      //
-      this.dataSource           = new MatTableDataSource<LogEntry>(ELEMENT_DATA_LOCAL);
-      this.dataSource.paginator = this.paginator;
-      //
-      console.log("ELEMENT_DATA_LOCAL : " + ELEMENT_DATA_LOCAL);
+      this.dataSource           = new MatTableDataSource<LogEntry>(p_logInfo);
+    }));
   }
   //
   ngOnInit(): void {
@@ -53,7 +42,7 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
   }
   //
   ngAfterViewInit() {
-    //this.dataSource.paginator = this.paginator;
+    this.dataSource.paginator = this.paginator;
   }
   //
   update() {
