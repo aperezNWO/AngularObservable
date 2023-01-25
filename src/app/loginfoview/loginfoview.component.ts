@@ -29,12 +29,19 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
     //
     this.informeLogRemoto = this.logInfoService.getLogRemoto();
     //
-    this.informeLogRemoto.pipe(tap((p_logInfo) => {
-      //
-      console.log("ELEMENT_DATA_LOCAL : " + p_logInfo); 
-      //
-      this.dataSource           = new MatTableDataSource<LogEntry>(p_logInfo);
-    }));
+    const myObserver = {
+      next: (p_logEntry: LogEntry[])     => { 
+        //
+        console.log('Observer got a next value: ' + JSON.stringify(p_logEntry));
+        //
+        this.dataSource           = new MatTableDataSource<LogEntry>(p_logEntry);
+        this.dataSource.paginator = this.paginator;
+      },
+      error: (err: Error)       => console.error('Observer got an error: ' + err),
+      complete: () => console.log('Observer got a complete notification'),
+    };
+    //
+    this.informeLogRemoto.subscribe(myObserver);
   }
   //
   ngOnInit(): void {
@@ -42,7 +49,7 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
   }
   //
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
+    //
   }
   //
   update() {

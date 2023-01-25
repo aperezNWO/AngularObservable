@@ -1,7 +1,7 @@
 <h1>{{title}}</h1>
 <div class="mat-elevation-z8">
 <div class="scrollbar">
-<table  mat-table  [dataSource]="informeLogRemoto"  class="mat-elevation-z8" aria-label="informeloglocal">
+<table  mat-table  [dataSource]="dataSource"  class="mat-elevation-z8" aria-label="informeloglocal">
   <ng-container matColumnDef="id_Column">
     <th mat-header-cell *matHeaderCellDef>id_Column</th>
     <td mat-cell *matCellDef="let element">{{ element.id_Column}}</td>
