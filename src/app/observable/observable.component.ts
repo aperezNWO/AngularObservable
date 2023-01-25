@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { fromEvent, Observable, Observer, of } from 'rxjs';
+import { from, fromEvent, interval, Observable, Observer, of } from 'rxjs';
 //
 @Component({
   selector: 'app-observable',
@@ -14,15 +14,17 @@ export class ObservableComponent {
     constructor()
     {
         //
-        this.ObservableTest01();
+        //this.ObservableTest01();
         //
-        this.ObservableTest02();
+        //this.ObservableTest02();
         //
-        this.ObservableTest03();
+        //this.ObservableTest03();
         //
-        this.ObservableTest04();
+        //this.ObservableTest04();
         //
-        this.ObservableTest05();
+        //this.ObservableTest05();
+        //
+        this.RxJSTest01();
     }
     //
     ObservableTest01():void
@@ -134,6 +136,24 @@ export class ObservableComponent {
       // (at 3 seconds): 1st sequence finished
       // (at 3 seconds): 2nd sequence finished
     }
+    //
+    RxJSTest01():void{
+      //
+      let url : string = "https://learningpath.somee.com/demos/generarinformejson";
+      // Create an Observable out of a promise
+      let data = from(fetch(url));
+      // Subscribe to begin listening for async result
+      data.subscribe({
+        next(response) { console.log(response); },
+        error(err) { console.error('Error: ' + err); },
+        complete() { console.log('Completed'); }
+      });
+   }
+   //
+   RxJSTest02():void{
+      //
+      //secondsCounter.
+   }
 }
 // This function runs when subscribe() is called
 function  sequenceSubscriber_01(observer: Observer<number>) {
@@ -229,6 +249,12 @@ function multicastSequenceSubscriber() {
     }
   };
 }
+// Create an Observable that will publish a value on an interval
+const secondsCounter = interval(1000);
+// Subscribe to begin publishing values
+const subscription = secondsCounter.subscribe(n =>
+  console.log(`It's been ${n + 1} seconds since subscribing!`));
+  
 // Create a new Observable that will deliver the above sequence
 const sequence_1 =  new Observable(sequenceSubscriber_01);
 // Create a new Observable that will deliver the above sequence
