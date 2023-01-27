@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
 })
 //
 export class AppComponent {
-  title = '[ANGULAR ASYNC PROGRAMMING / MATERIAL  UIX]';
+  title = '[ANGULAR ASYNC PROGRAMMING]';
 }
